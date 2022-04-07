@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: derekshop-commodity
+  cloud:
+    config:
+      # multi profile name 讀取多個profile檔案
+      name: ${spring.application.name}, derekshop-db
+      profile: ${SPRING_ACTIVE_PROFILE:dev}   #對應spring.profiles.active
+      #      label: master   #分支名。当使用配置服务器是git时，默认是master
+      #      username: user  #配置服务器的用户名密码，此配置会覆盖uri中的配置
+      #      password: password123
+      discovery:
+        enabled: true  #默认false，设为true表示使用注册中心中的configserver配置，而不是自己配置configserver的uri
+        service-id: derekshop-config #指定config server在服务发现中的serviceId，默认为：configserver
+
+eureka:
+  client:
+    serverUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true #當猜測主機名時，服務器的IP地址應該在操作系统報告的主機名中使用

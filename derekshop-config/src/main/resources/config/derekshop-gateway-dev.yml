@@ -1,0 +1,50 @@
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 30000
+        response-timeout: 30s
+      # Connection prematurely closed BEFORE response
+      pool:
+        maxIdleTime: 20000
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+      default-filters:
+        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+      routes:
+        - id: derekshop-commodity
+          uri: lb://derekshop-commodity
+          predicates:
+            - Path=/commodities/**
+          filters:
+            - name: TokenAuth
+              args:
+                channel: ccapp
+        - id: derekshop-authentication
+          uri: lb://derekshop-authentication
+          predicates:
+            - Path=/getJwtToken
+#            - name: ReadBodyPredicateFactory
+#              args:
+#                inClass: "#{T(String)}"
+#                predicate: "#{@testRequestBody}"
+auth:
+  root: 'http://derekshop-authentication'
+  checkTokenEndPoint: '/verifyJwtToken'
+
+#secure:
+#  ignore:
+#    urls: #配置白名单路径
+#      - "/actuator/**"
+#      - "/auth/token"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

@@ -1,0 +1,21 @@
+server:
+  port: 0 # 自動分配ip
+
+spring:
+  application:
+    name: derekshop-config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:config/
+#       git:
+#        uri: /Users/derekhuang/spring_cloud/config-repo
+eureka:
+  client:
+    serverUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true #當猜測主機名時，服務器的IP地址應該在操作系统報告的主機名中使用

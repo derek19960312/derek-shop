@@ -1,0 +1,58 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: kenba-server    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: kenba-server
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: kenba-server
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: kenba-server
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: kenba-server
+        image: derek19960312/kenba-server:v4
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: http
+            containerPort: 8080 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "200Mi"
+        env:                  # Environment variables supplied to the Pod
+        - name: DB_USER_NAME # Name of the environment variable
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: kenba-user-pass
+              key: username
+        - name: DB_USER_PWD
+          valueFrom:
+            secretKeyRef:
+              name: kenba-user-pass
+              key: password
+        - name: DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: kenba-db-url
+              key: url
+---
+apiVersion: v1                # API version
+kind: Service                 # Type of the kubernetes resource
+metadata:                     
+  name: kenba-server    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: kenba-server
+spec:                         
+  type: NodePort              # The com.derek.springcloud.shop.service will be exposed by opening a Port on each node and proxying it.
+  selector:
+    app: kenba-server   # The com.derek.springcloud.shop.service exposes Pods with label `app=kenba-server`
+  ports:                      # Forward incoming connections on port 8080 to the target port 8080
+  - name: http
+    port: 8080
+    targetPort: 8080

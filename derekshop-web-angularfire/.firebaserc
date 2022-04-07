@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shop-demo-b4c7f": {
+      "hosting": {
+        "derekshop-web-angularfire": [
+          "shop-demo-b4c7f"
+        ]
+      }
+    }
+  }
+}

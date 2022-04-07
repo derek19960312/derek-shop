@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:30390/derekshop?allowPublicKeyRetrieval=true&useSSL=false
+    username: derek
+    password: --
+  jpa:
+    show-sql: ${JPA_SHOWSQL:true}
+    hibernate:
+      ddl-auto: update

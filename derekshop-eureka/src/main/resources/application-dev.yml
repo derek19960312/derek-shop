@@ -1,0 +1,11 @@
+eureka:
+  instance:
+    hostname: localhost # eureka服務端的實例名稱
+  client:
+    register-with-eureka: false #false表示不向註冊中心註冊自己
+    fetch-registry: false #false表示自己端就是註冊中心，我的職責就是維護服務實例，並不需要去檢索服務
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ #設置與 Eureka Server交互的地址查詢服務和註冊服務都需要依賴這個地址
+  server:
+    # https://developer.aliyun.com/article/651183
+    renewalPercentThreshold: 0.49

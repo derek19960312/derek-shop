@@ -1,0 +1,7 @@
+pex:
+  auth:
+    pd: leaseuseahightsecuritypwd
+    token:
+      expiretime: 120000
+      iss: ccapp
+      jwts: thisisccappjwtsecret

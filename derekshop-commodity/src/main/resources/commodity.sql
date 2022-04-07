@@ -1,0 +1,13 @@
+create database DEREKSHOP character set utf8;
+use DEREKSHOP;
+CREATE TABLE Commodity
+(
+    CO_NO VARCHAR(16),
+    CO_DESC VARCHAR (255),
+    CO_NAME VARCHAR (50),
+    CO_IMG_URL VARCHAR (50),
+    CO_PRICE DOUBLE,
+    CO_PAY_TYPE CHAR (1),
+    CREATED_USER VARCHAR (10),
+    CREATED_TIME DATETIME
+);

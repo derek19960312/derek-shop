@@ -1,0 +1,12 @@
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# Logger for jackson lib
+logging:
+  level:
+    org:
+      codehaus: TRACE

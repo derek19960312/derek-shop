@@ -1,0 +1,8 @@
+server:
+  port: 8761
+  error:
+    include-message: always
+spring:
+  profiles:
+    active:
+      - ${SPRING_PROFILE:dev}
